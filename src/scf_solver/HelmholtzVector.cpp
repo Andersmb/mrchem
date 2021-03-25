@@ -171,10 +171,12 @@ OrbitalVector HelmholtzVector::apply_zora_v3(RankZeroTensorOperator &V,
     // Apply O on all orbitals
     OrbitalVector out = orbital::param_copy(Phi);
     for (int i = 0; i < Phi.size(); i++) {
+        if (not mpi::my_orb(out[i])) continue;
         Orbital OPhi_i = O(Phi[i]);
         OPhi_i.add(-1.0, Psi[i]);
         OPhi_i.rescale(- 1 / (2 * MATHCONST::pi));
         out[i] = apply(i, OPhi_i);
+        O.clear();
     }
     
     // Clear operators and return result
