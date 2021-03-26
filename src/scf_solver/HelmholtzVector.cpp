@@ -176,7 +176,6 @@ OrbitalVector HelmholtzVector::apply_zora_v3(RankZeroTensorOperator &V,
         OPhi_i.add(-1.0, Psi[i]);
         OPhi_i.rescale(- 1 / (2 * MATHCONST::pi));
         out[i] = apply(i, OPhi_i);
-        O.clear();
     }
     
     // Clear operators and return result
